@@ -24,7 +24,7 @@ export default function Home() {
   const [status, setStatus] = useState<'initial' | 'error' | 'success'>(
     'initial'
   );
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
   const [form] = Form.useForm();
 
@@ -35,12 +35,10 @@ export default function Home() {
       });
       setStatus('success');
       setMessage(response.data?.short_link);
-      setLoading(false);
     } catch (e) {
       const error = e as AxiosError<ShortLinkErr>;
       setStatus('error');
       setMessage(error.response?.data?.error_desc || 'Something went wrong!');
-      setLoading(false);
     }
   };
 
@@ -48,7 +46,6 @@ export default function Home() {
     setStatus('error');
     const error = form.getFieldError('link').join(' ');
     setMessage(error);
-    setLoading(false);
   };
 
   return (
@@ -91,8 +88,6 @@ export default function Home() {
                     htmlType="submit"
                     style={{ width: '100%' }}
                     size="large"
-                    loading={loading}
-                    onClick={() => setLoading(!false)}
                   >
                     Shorten
                   </Button>
